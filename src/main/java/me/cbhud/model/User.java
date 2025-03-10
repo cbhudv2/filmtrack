@@ -7,8 +7,6 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private Set<User> following = new HashSet<>();
-    private Set<User> followers = new HashSet<>();
     private Set<Movie> watchedMovies = new HashSet<>();
     private List<Review> reviews = new ArrayList<>();
 
@@ -33,23 +31,6 @@ public class User {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public Set<User> getFollowing() { return following; }
-    public Set<User> getFollowers() { return followers; }
-
-    public void followUser(User user) {
-        if (user != null && !following.contains(user)) {
-            following.add(user);
-            user.followers.add(this); // Add this user to the other user's followers
-        }
-    }
-
-    public void unfollowUser(User user) {
-        if (user != null && following.contains(user)) {
-            following.remove(user);
-            user.followers.remove(this); // Remove this user from the other user's followers
-        }
-    }
-
     public Set<Movie> getWatchedMovies() { return watchedMovies; }
     public void addWatchedMovie(Movie movie) { watchedMovies.add(movie); }
 
@@ -58,6 +39,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{id=" + id + ", name='" + name + "', email='" + email + "', following=" + following.size() + ", followers=" + followers.size() + "}";
+        return "User{id=" + id + ", name='" + name + "', email='" + email + "}";
     }
 }
