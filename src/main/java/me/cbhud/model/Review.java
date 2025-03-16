@@ -8,6 +8,8 @@ import java.util.Date;
 public class Review {
 
     /// asdasdas
+    /// asdasdas
+    /// dodajem jos nesto
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
