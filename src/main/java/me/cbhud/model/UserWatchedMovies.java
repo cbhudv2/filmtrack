@@ -1,19 +1,16 @@
 package me.cbhud.model;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
-@Table(name = "review")
-public class Review {
+@Table(name = "user_watched_movies")
+public class UserWatchedMovies {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer rating;
-    @Column(name = "review_text")  // Maps the field to the release_year column in the database
-    private String reviewText;
-    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -32,30 +29,6 @@ public class Review {
         this.id = id;
     }
 
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
-    public String getReviewText() {
-        return reviewText;
-    }
-
-    public void setReviewText(String reviewText) {
-        this.reviewText = reviewText;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public User getUser() {
         return user;
     }
@@ -70,5 +43,21 @@ public class Review {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    // hashCode and equals implementation
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, movie);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserWatchedMovies that = (UserWatchedMovies) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(user, that.user) &&
+                Objects.equals(movie, that.movie);
     }
 }

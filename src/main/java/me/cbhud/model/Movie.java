@@ -1,55 +1,81 @@
 package me.cbhud.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
-import java.util.ArrayList;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "movie")
 public class Movie {
+
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String title;
-    private int releaseYear;
-    private String director;
     private String genre;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews = new ArrayList<>();
+    private String director;
+    @Column(name = "release_year")  // Maps the field to the release_year column in the database
+    private Integer releaseYear;
 
-    public Movie() {}
+    @OneToMany(mappedBy = "movie")
+    private List<Review> reviews;
 
-    public Movie(int id, String title, int releaseYear, String director, String genre) {
+    @ManyToMany(mappedBy = "watchedMovies")
+    private List<User> users;
+
+    // Getters and Setters
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
-        this.releaseYear = releaseYear;
-        this.director = director;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
-
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public int getReleaseYear() { return releaseYear; }
-    public void setReleaseYear(int releaseYear) { this.releaseYear = releaseYear; }
-
-    public String getDirector() { return director; }
-    public void setDirector(String director) { this.director = director; }
-
-    public String getGenre() { return genre; }
-    public void setGenre(String genre) { this.genre = genre; }
-
-    public List<Review> getReviews() { return reviews; }
-    public void addReview(Review review) { reviews.add(review); }
-
-    @Override
-    public String toString() {
-        return "Movie{id=" + id + ", title='" + title + "', releaseYear=" + releaseYear + "}";
+    public String getDirector() {
+        return director;
     }
 
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public Integer getReleaseYear() {
+        return releaseYear;
+    }
+
+    public void setReleaseYear(Integer releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 }
