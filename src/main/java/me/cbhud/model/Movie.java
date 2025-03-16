@@ -1,14 +1,22 @@
 package me.cbhud.model;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Movie {
-    private int id;
+    @Id
+    private long id;
     private String title;
     private int releaseYear;
     private String director;
     private String genre;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
     public Movie() {}
@@ -21,8 +29,8 @@ public class Movie {
         this.genre = genre;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
@@ -43,4 +51,5 @@ public class Movie {
     public String toString() {
         return "Movie{id=" + id + ", title='" + title + "', releaseYear=" + releaseYear + "}";
     }
+
 }

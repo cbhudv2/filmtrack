@@ -1,14 +1,20 @@
 package me.cbhud.model;
 
+import jakarta.inject.Inject;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 
+@Entity
 public class Review {
-    private int id;
-    private int rating;
-    private String text;
-    private LocalDate date;
-    private User user;
-    private Movie movie;
+    @Id
+    long id;
+    int rating;
+    String text;
+    LocalDate date;
+    User user;
+    Movie movie;
 
     public Review() {}
 
@@ -21,7 +27,7 @@ public class Review {
         this.movie = movie;
     }
 
-    public int getId() { return id; }
+    public long getId() { return id; }
     public void setId(int id) { this.id = id; }
 
     public int getRating() { return rating; }

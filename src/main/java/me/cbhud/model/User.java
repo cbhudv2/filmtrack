@@ -1,13 +1,21 @@
 package me.cbhud.model;
 
+import jakarta.persistence.*;
+
 import java.util.*;
 
+@Entity
 public class User {
+    @SequenceGenerator(name = "movie_sequence", sequenceName = "movie_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_sequence")
+    @Id
     private int id;
     private String name;
     private String email;
     private String password;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Movie> watchedMovies = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
     public User() {}
