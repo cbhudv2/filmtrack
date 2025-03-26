@@ -6,6 +6,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import me.cbhud.model.Movie;
 
+import java.util.List;
+
 @Dependent
 public class MovieRepository {
 
@@ -21,6 +23,11 @@ public class MovieRepository {
     @Transactional
     public Movie getMovieById(Integer id) {
         return em.find(Movie.class, id);
+    }
+
+    @Transactional
+    public List<Movie> getMovies() {
+        return em.createQuery("SELECT m FROM Movie m", Movie.class).getResultList();
     }
 
     @Transactional

@@ -7,6 +7,8 @@ import jakarta.ws.rs.core.Response;
 import me.cbhud.model.Movie;
 import me.cbhud.repository.MovieRepository;
 
+import java.util.List;
+
 @Path("/movie")
 public class MovieResource {
     @Inject
@@ -25,6 +27,14 @@ public class MovieResource {
     @Path("/{id}")
     public Response getMovieById(@PathParam("id") Integer id) {
         Movie m = movieRepository.getMovieById(id);
+        return Response.ok().entity(m).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getAll")
+    public Response getAllMovies() {
+        List<Movie> m = movieRepository.getMovies();
         return Response.ok().entity(m).build();
     }
 
